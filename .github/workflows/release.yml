@@ -1,0 +1,58 @@
+name: Package Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse manifest
+        id: manifest
+        run: |
+          NAME=$(jq -r '.asset.Name' manifest.json | tr ' ' '_')
+          VERSION=$(jq -r '.asset.Version' manifest.json)
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Package
+        run: |
+          STAGING="${{ steps.manifest.outputs.name }}"
+          mkdir -p "$STAGING"
+
+          rsync -a \
+            --exclude='src/' \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.gitignore' \
+            --exclude='.idea/' \
+            --exclude='obj/' \
+            --exclude='references/' \
+            --exclude='*.csproj' \
+            --exclude='*.sln' \
+            --exclude='*.pdb' \
+            --exclude='Directory.Build.props' \
+            ./ "$STAGING/"
+
+          ZIP="${{ steps.manifest.outputs.name }}_${{ steps.manifest.outputs.version }}.zip"
+          zip -r "$ZIP" "$STAGING"
+          echo "zip=$ZIP" >> "$GITHUB_ENV"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.manifest.outputs.name }}_${{ steps.manifest.outputs.version }}
+          path: ${{ env.zip }}
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ env.zip }}
+          generate_release_notes: true
