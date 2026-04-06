@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <AssemblyName>ImpactfulMedals</AssemblyName>
+    <RootNamespace>TinyBit</RootNamespace>
+
+    <!-- Output the DLL into assembly/common/ so the game's mod loader picks it up -->
+    <OutputPath>assembly/common/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <!-- Game assemblies (all game code: Artitas, Common, Xenonauts, Strategy, etc.) -->
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(GameAssemblies)/Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(GameAssemblies)/Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Harmony (runtime method patching) -->
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(PluginsRoot)/Xenonauts/Harmony/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- log4net (game logging framework) -->
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>$(PluginsRoot)/Xenonauts/log4net-1.2.15/log4net.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Unity Engine -->
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>$(UnityEditorData)/Managed/UnityEngine/UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(UnityEditorData)/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,13 @@
+{
+    "version": "0.0.4",
+    "asset": {
+        "Name": "Impactful Medals",
+        "UID": "a3f1c9d7-8e2b-4a56-b0c3-7d9e1f2a3b4c",
+        "Description": "Overhauls the medal system so each medal grants unique, thematically appropriate stat bonuses (+5 to +10) instead of the generic +1 to all attributes. Veterans become noticeably powerful, and each medal tells a story.",
+        "Author": "Tiny Bit",
+        "Tags": ["Balance", "Mod"],
+        "Version": "1.0.0",
+        "$type": "Common.Content.DataStructures.ContentPackManifest"
+    },
+    "$type": "Common.Content.DataStructures.VersionedAsset"
+}

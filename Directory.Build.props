@@ -1,0 +1,21 @@
+<Project>
+  <PropertyGroup>
+    <!-- Path to the X2 Unity project root (two levels up from this mod folder) -->
+    <X2ProjectRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)/../../'))</X2ProjectRoot>
+
+    <!-- Unity compiled game assemblies (Assembly-CSharp.dll, etc.) -->
+    <GameAssemblies>$(X2ProjectRoot)/Library/ScriptAssemblies</GameAssemblies>
+
+    <!-- Game plugin DLLs (Harmony, log4net, etc.) -->
+    <PluginsRoot>$(X2ProjectRoot)/Assets/Plugins</PluginsRoot>
+
+    <!-- Unity Editor installation (for UnityEngine.dll)
+         Set UNITY_EDITOR_PATH env var to your Unity install, e.g.:
+           Linux:   /home/you/Unity/Hub/Editor/2022.3.51f1
+           Windows: C:\Program Files\Unity\Hub\Editor\2022.3.51f1
+         Or override UnityEditorData directly below.
+    -->
+    <UnityEditorData Condition="'$(UNITY_EDITOR_PATH)' != ''">$(UNITY_EDITOR_PATH)/Editor/Data</UnityEditorData>
+    <UnityEditorData Condition="'$(UnityEditorData)' == ''">$(X2ProjectRoot)/../../../Unity/Hub/Editor/2022.3.51f1/Editor/Data</UnityEditorData>
+  </PropertyGroup>
+</Project>
