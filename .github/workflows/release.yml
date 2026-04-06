@@ -19,7 +19,7 @@ jobs:
       - name: Parse manifest
         id: manifest
         run: |
-          NAME=$(jq -r '.asset.Name' manifest.json | tr ' ' '_')
+          NAME=$(jq -r '.asset.Name' manifest.json | tr ' ' '_' | tr '[:upper:]' '[:lower:]')
           VERSION=$(jq -r '.asset.Version' manifest.json)
           echo "name=$NAME" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
