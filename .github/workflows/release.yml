@@ -37,6 +37,7 @@ jobs:
             --exclude='.idea/' \
             --exclude='obj/' \
             --exclude='references/' \
+            --exclude="$STAGING/" \
             --exclude='*.csproj' \
             --exclude='*.sln' \
             --exclude='*.pdb' \
